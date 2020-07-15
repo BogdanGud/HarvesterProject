@@ -30,6 +30,9 @@ public class Revenue {
     @Column(name = "combiner_driver_payment_hectare")
     private double combineDriverPaymentPerHectare;
 
+    @Column(name = "assistant_payment")
+    private double assistantPayment;
+
     @Column(name = "comment")
     private String comment;
 }

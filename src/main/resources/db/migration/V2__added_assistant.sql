@@ -1,0 +1,1 @@
+ALTER TABLE revenue ADD assistant_payment double DEFAULT 0 NOT NULL AFTER combiner_driver_payment_hectare;
