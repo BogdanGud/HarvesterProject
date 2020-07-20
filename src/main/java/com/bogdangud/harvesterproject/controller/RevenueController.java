@@ -31,7 +31,9 @@ public class RevenueController {
     @PostMapping
     public ResponseEntity<String> save(@RequestBody Revenue revenue) {
         revenueService.addNewRevenue(revenue);
-        return ResponseEntity.status(HttpStatus.CREATED).body(" New revenue added successfully");
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(" New revenue added successfully");
     }
 
     @GetMapping("/year/{year}")
