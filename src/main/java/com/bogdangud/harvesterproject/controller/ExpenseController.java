@@ -27,18 +27,16 @@ public class ExpenseController {
     }
 
     @PostMapping
-    public ResponseEntity addNewExpense(@RequestBody Expense expense) {
+    public ResponseEntity<String> addNewExpense(@RequestBody Expense expense) {
         expenseService.addNewExpense(expense);
         return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(" New expense added successfully");
+                .status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/payoff")
-    public ResponseEntity updatePayment(@RequestBody ExpensePayment payment) {
+    public ResponseEntity<String> updatePayment(@RequestBody ExpensePayment payment) {
         expenseService.payOffDebt(payment);
         return ResponseEntity
-                .status(HttpStatus.OK)
-                .body("Debt is paid");
+                .status(HttpStatus.OK).build();
     }
 }
