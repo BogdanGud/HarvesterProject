@@ -20,4 +20,13 @@ public class User {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "is_driver")
+    private boolean isDriver;
+
+    @Column(name = "is_investor")
+    private boolean isInvestor;
+
+    @Column(name = "is_assistant")
+    private boolean isAssistant;
+
 }
