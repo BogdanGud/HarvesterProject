@@ -1,7 +1,7 @@
 package com.bogdangud.harvesterproject.controller;
 
 import com.bogdangud.harvesterproject.model.Expense;
-import com.bogdangud.harvesterproject.model.ExpensePayment;
+import com.bogdangud.harvesterproject.model.DebtPayment;
 import com.bogdangud.harvesterproject.service.ExpenseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,7 +34,7 @@ public class ExpenseController {
     }
 
     @PutMapping("/payoff")
-    public ResponseEntity<String> updatePayment(@RequestBody ExpensePayment payment) {
+    public ResponseEntity<String> updatePayment(@RequestBody DebtPayment payment) {
         expenseService.payOffDebt(payment);
         return ResponseEntity
                 .status(HttpStatus.OK).build();

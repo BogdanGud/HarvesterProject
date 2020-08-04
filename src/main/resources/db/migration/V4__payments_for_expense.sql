@@ -1,4 +1,4 @@
-CREATE TABLE expense_payments
+CREATE TABLE debt_payments
 (
     id         bigint(20) NOT NULL AUTO_INCREMENT,
     amount     double     NOT NULL,

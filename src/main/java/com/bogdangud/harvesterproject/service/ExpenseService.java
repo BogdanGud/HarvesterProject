@@ -1,7 +1,7 @@
 package com.bogdangud.harvesterproject.service;
 
+import com.bogdangud.harvesterproject.model.DebtPayment;
 import com.bogdangud.harvesterproject.model.Expense;
-import com.bogdangud.harvesterproject.model.ExpensePayment;
 import com.bogdangud.harvesterproject.model.User;
 import com.bogdangud.harvesterproject.repository.ExpensePaymentsRepository;
 import com.bogdangud.harvesterproject.repository.ExpenseRepository;
@@ -23,10 +23,6 @@ public class ExpenseService {
     private final UserRepository userRepository;
     Logger log = LoggerFactory.getLogger(ExpenseService.class);
 
-    public Expense getById(long id) {
-        return expenseRepository.findById(id);
-    }
-
     public void addNewExpense(Expense expense) {
         Expense tempExp = expenseRepository.save(expense);
         log.info("New expense added successfully: " + tempExp.toString());
@@ -39,13 +35,13 @@ public class ExpenseService {
 
     private void createNewExpensePayments(Expense expense) {
         double sumPerUser = expense.getAmount() / getNumberOfInvestors();
-        List<User> debtors = userRepository.findAllByIdIsNot(expense.getPaidByUserId());
-        List<ExpensePayment> payments = debtors.stream()
-                .map(d -> ExpensePayment.builder()
+        List<User> debtors = userRepository.findAllDebtors(expense.getPaidByUserId());
+        List<DebtPayment> payments = debtors.stream()
+                .map(d -> DebtPayment.builder()
                         .expenseId(expense.getId())
                         .amount(sumPerUser)
                         .debtorId(d.getId())
-                        .isPaid(false)
+                        .paid(false)
                         .build())
                 .collect(Collectors.toList());
 
@@ -54,10 +50,10 @@ public class ExpenseService {
     }
 
     private int getNumberOfInvestors() {
-        return userRepository.findAll().size();
+        return userRepository.getAmountOfInvestors();
     }
 
-    public void payOffDebt(ExpensePayment payment) {
+    public void payOffDebt(DebtPayment payment) {
         expensePaymentsRepository.save(payment);
         if (isAllRelatedPaymentsDone(payment.getExpenseId())) {
             Expense tempExp = expenseRepository.getOne(payment.getExpenseId());
@@ -67,8 +63,7 @@ public class ExpenseService {
     }
 
     private boolean isAllRelatedPaymentsDone(long id) {
-        if (expensePaymentsRepository.findAllUnpaidDebts(id).isEmpty()) return true;
-        return false;
+        return expensePaymentsRepository.findAllUnpaidDebtsForExpense(id).isEmpty();
     }
 
 

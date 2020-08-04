@@ -12,7 +12,7 @@ public class ExpenseUtils {
                 .date(new GregorianCalendar(2020, Calendar.JULY, 5).getTime())
                 .description("integration test")
                 .paidByUserId(1)
-                .isPaid(false)
+                .paid(false)
                 .build();
     }
 }

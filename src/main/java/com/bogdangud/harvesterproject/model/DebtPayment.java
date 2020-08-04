@@ -18,8 +18,8 @@ import javax.persistence.Table;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Table(name = "expense_payments")
-public class ExpensePayment {
+@Table(name = "debt_payments")
+public class DebtPayment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
@@ -35,5 +35,5 @@ public class ExpensePayment {
     private long expenseId;
 
     @Column(name = "is_paid")
-    private boolean isPaid;
+    private boolean paid;
 }
