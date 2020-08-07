@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/revenue")
+@RequestMapping("api/revenue")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RevenueController {
     private final RevenueService revenueService;
@@ -27,13 +27,11 @@ public class RevenueController {
         return revenueService.getAllRevenues();
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public ResponseEntity<String> save(@RequestBody Revenue revenue) {
         revenueService.addNewRevenue(revenue);
         return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(" New revenue added successfully");
+                .status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/year/{year}")

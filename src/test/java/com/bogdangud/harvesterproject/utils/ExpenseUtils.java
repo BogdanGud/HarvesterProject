@@ -9,8 +9,8 @@ public class ExpenseUtils {
     public static Expense createNewExpense() {
         return Expense.builder()
                 .amount(999)
-                .date(new GregorianCalendar(2020, Calendar.JULY, 5).getTime())
-                .description("integration test")
+                .date(GregorianCalendar.getInstance().getTime())
+                .description("integration test333")
                 .paidByUserId(1)
                 .paid(false)
                 .build();

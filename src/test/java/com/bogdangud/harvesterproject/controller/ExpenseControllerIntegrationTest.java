@@ -1,12 +1,12 @@
 package com.bogdangud.harvesterproject.controller;
 
 import com.bogdangud.harvesterproject.model.Expense;
+import com.bogdangud.harvesterproject.repository.ExpenseRepository;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
@@ -26,28 +26,21 @@ public class ExpenseControllerIntegrationTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    @LocalServerPort
-    private int port;
-
-
     @Test
     void testAddingNewExpense() {
-
         Expense testExpense = createNewExpense();
         ResponseEntity<Expense> responseEntity = restTemplate.postForEntity(
-                "http://localhost:" + port + "/harvester/expense", testExpense, Expense.class);
+                "/api/expense", testExpense, Expense.class);
 
         assertThat(responseEntity, notNullValue());
         assertThat(responseEntity.getStatusCodeValue(), is(HttpStatus.CREATED.value()));
 
     }
 
-
     @Test
     void getAllExpensesTest() {
-
         ResponseEntity<Expense[]> expenseResponseEntity = restTemplate.getForEntity(
-                "http://localhost:" + port + "/harvester/expense", Expense[].class);
+                "/api/expense", Expense[].class);
 
         assertAll(
                 () -> assertThat(expenseResponseEntity, notNullValue()),

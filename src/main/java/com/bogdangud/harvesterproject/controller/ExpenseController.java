@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/expense")
+@RequestMapping("api/expense")
 @RequiredArgsConstructor
 public class ExpenseController {
     private final ExpenseService expenseService;

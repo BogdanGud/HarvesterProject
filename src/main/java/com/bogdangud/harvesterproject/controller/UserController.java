@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
     private final UserRepository userRepository;
@@ -23,6 +23,11 @@ public class UserController {
     @GetMapping()
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable String id) {
+        return userRepository.getOne(Long.parseLong(id));
     }
 
     @GetMapping("/status/{id}")
