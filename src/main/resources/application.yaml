@@ -1,0 +1,24 @@
+
+spring:
+  datasource:
+    password: Qwerty1_
+    url: jdbc:mysql://localhost:3306/harvester?useSSL=false&serverTimezone=UTC
+    username: root
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+---
+
+spring:
+  profiles: test
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:mysql:5.7.31://localhost:3306/harvester?useSSL=false&serverTimezone=UTC
+---
